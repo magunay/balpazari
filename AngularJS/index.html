@@ -1,0 +1,142 @@
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<html ng-app="app">
+<head>
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
+    <link href="css/roboto.min.css" rel="stylesheet">
+    <link href="css/material.min.css" rel="stylesheet">
+    <link href="css/ripples.min.css" rel="stylesheet">
+</head>
+<body onload="openLogin()">
+
+<div class="container">
+    <div class="navbar navbar-yellow">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0)">BAL PAZARI </a> </span> 
+        </div>
+    </div>
+    <div ng-controller="MainController">
+        <div class="col-md-8">
+
+            <form class="BalForm" role="form">
+                <div class="form-group">
+                    <label for="city" class="control-label">Şehirler</label>
+                    <select  ng-model="city"  
+                            ng-options="city.name for city in cities | unique :'name'" 
+                            class="form-control"> </select>
+                </div>
+				<div class="form-group">
+                    <label for="jartype" class="control-label">Kavanozlar</label>
+					<select ng-model="jartype"   ng-options="jar.type for jar in jars | unique :'type'"
+                            ng-required="true"
+                            class="form-control"> </select>
+                </div>
+				<button ng-click="add()" class="btn btn-primary btn-raised btn-lg">Add Product
+          </button>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Hoşgeldiniz Sayın <span ng-bind="username"></h3>
+					 <h3 class="panel-title">Ücretler</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="product in selectedproducts">
+                            <span class="badge"> {{product.price}}  TL</span>
+                            {{product.city}} - {{product.jartype}}
+                        </li>
+                       
+                    </ul>
+                </div>
+                <div class="panel-footer" ng-show="total != 0"><b>TOTAL :</b>
+
+                    <h2> {{total}} TL</h2>
+                    <button ng-click="order()" class="btn btn-primary btn-raised btn-lg" data-toggle="modal"
+                            data-target="#order-dialog">Order
+                        <div class="ripple-wrapper"></div>
+                    </button>
+                    <button ng-click="cancel()" class="btn btn-primary btn-raised btn-lg" data-toggle="modal"
+                            data-target="#cancel-dialog">Cancel
+                        <div class="ripple-wrapper"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="order-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <center><p>
+                            <h1>{{message}}</h1></p></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cancel-dialog" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <center><p>
+
+                            <h1>Cancel it??? :'(</h1></p></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+
+
+<div id="openLogin" class="modalDialog">
+	<div>
+		 <form>
+        <div>
+          <h3>Login information</h3>
+          <label for="usrnm" class="ui-hidden-accessible">Username:</label>
+          <input ng-model="username" type="text" name="user" id="usrnm" placeholder="Username">
+          <label for="pswd" class="ui-hidden-accessible">Password:</label>
+          <input ng-model="password" type="password" name="passw" id="pswd" placeholder="Password">
+          <button ng-click="login()" class="btn btn-primary btn-raised btn-lg">Login
+          </button>
+        </div>
+      </form>
+	</div>
+</div>
+  
+
+  
+  
+  </div>
+
+
+  </div>
+
+
+</div>
+<script src="js/jquery-2.1.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/ripples.min.js"></script>
+<script src="js/material.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // This command is used to initialize some elements and make them work properly
+        $.material.init();
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
